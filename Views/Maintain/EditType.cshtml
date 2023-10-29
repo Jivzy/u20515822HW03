@@ -1,0 +1,30 @@
+﻿@model u20515822_HW03.Models.StudentBookViewModel
+
+@{
+    ViewBag.Title = "Edit Type";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit Type</h2>
+
+@using (Html.BeginForm("EditType", "Maintain", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(model => model.Type.typeId)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Type.name, "Type Name")
+        @Html.EditorFor(model => model.Type.name, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+
+    <!-- Add other fields here if needed -->
+
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-primary" />
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

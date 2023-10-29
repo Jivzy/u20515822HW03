@@ -1,0 +1,93 @@
+﻿@model u20515822_HW03.Models.StudentBookViewModel
+
+<div style="display: flex;">
+    <div style="flex: 1;">
+        <h2>Students</h2>
+        <a href="@Url.Action("CreateStudent", "StudentBook")" class="btn btn-primary">Create Student</a>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>Birth Date</th>
+                    <th>Gender</th>
+                    <th>Point</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var student in Model.Students)
+                {
+                    <tr>
+                        <td>@student.name</td>
+                        <td>@student.surname</td>
+                        <td>@student.birthdate</td>
+                        <td>@student.gender</td>
+                        <td>@student.point</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <!-- Pagination controls for students -->
+        <div class="text-center">
+            @if (Model.StudentPageNumber > 1)
+            {
+                <a href="@Url.Action("Index", new { studentPage = Model.StudentPageNumber - 1, bookPage = Model.BookPageNumber })">Previous</a>
+            }
+
+            @for (int i = 1; i <= Model.TotalStudentPages; i++)
+            {
+                <a href="@Url.Action("Index", new { studentPage = i, bookPage = Model.BookPageNumber })">@i</a>
+            }
+
+            @if (Model.StudentPageNumber < Model.TotalStudentPages)
+            {
+                <a href="@Url.Action("Index", new { studentPage = Model.StudentPageNumber + 1, bookPage = Model.BookPageNumber })">Next</a>
+            }
+        </div>
+
+    </div>
+
+    <div style="flex: 1;">
+        <h2>Books</h2>
+        <a href="@Url.Action("CreateBook", "StudentBook")" class="btn btn-primary">Create Book</a>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Page Count</th>
+                    <th>Point</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var book in Model.Books)
+                {
+                    <tr>
+                        <td>@book.name</td>
+                        <td>@book.pagecount</td>
+                        <td>@book.point</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <!-- Pagination controls for books -->
+        <div class="text-center">
+            @if (Model.BookPageNumber > 1)
+            {
+                <a href="@Url.Action("Index", new { studentPage = Model.StudentPageNumber, bookPage = Model.BookPageNumber - 1 })">Previous</a>
+            }
+
+            @for (int i = 1; i <= Model.TotalBookPages; i++)
+            {
+                <a href="@Url.Action("Index", new { studentPage = Model.StudentPageNumber, bookPage = i })">@i</a>
+            }
+
+            @if (Model.BookPageNumber < Model.TotalBookPages)
+            {
+                <a href="@Url.Action("Index", new { studentPage = Model.StudentPageNumber, bookPage = Model.BookPageNumber + 1 })">Next</a>
+            }
+        </div>
+    </div>
+</div>
+

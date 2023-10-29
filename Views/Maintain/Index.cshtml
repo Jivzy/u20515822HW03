@@ -1,0 +1,132 @@
+﻿@model u20515822_HW03.Models.StudentBookViewModel
+
+<div style="display: flex;">
+    <div style="flex: 1;">
+        <h2>Authors</h2>
+        <a href="@Url.Action("CreateAuthor", "Maintain")" class="btn btn-primary">Create Author</a>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Author Name</th>
+                    <th>Author Surname</th>
+                    <!-- Add other author attributes here -->
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var author in Model.Authors)
+                {
+                    <tr>
+                        <td>@author.name</td>
+                        <td>@author.surname</td>
+                        <td>
+                            <a href="@Url.Action("EditAuthor", new { id = author.authorId })" class="btn btn-primary">Edit</a>
+                            <a href="@Url.Action("DeleteAuthor", new { id = author.authorId })" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <!-- Pagination controls for authors -->
+        <div class="text-center">
+            @if (Model.AuthorsPageNumber > 1)
+            {
+                <a href="@Url.Action("Index", new { authorPage = Model.AuthorsPageNumber - 1, typePage = Model.TypesPageNumber, borrowPage = Model.BorrowsPageNumber })">Previous</a>
+            }
+
+            @for (int i = 1; i <= Model.TotalAuthorsPages; i++)
+            {
+                <a href="@Url.Action("Index", new { authorPage = i, typePage = Model.TypesPageNumber, borrowPage = Model.BorrowsPageNumber })">@i</a>
+            }
+
+            @if (Model.AuthorsPageNumber < Model.TotalAuthorsPages)
+            {
+                <a href="@Url.Action("Index", new { authorPage = Model.AuthorsPageNumber + 1, typePage = Model.TypesPageNumber, borrowPage = Model.BorrowsPageNumber })">Next</a>
+            }
+        </div>
+    </div>
+
+    <div style="flex: 1;">
+        <h2>Types</h2>
+        <a href="@Url.Action("CreateType", "Maintain")" class="btn btn-primary">Create Type</a>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Type Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var type in Model.Types)
+                {
+                    <tr>
+                        <td>@type.name</td>
+                        <td>
+                            <a href="@Url.Action("EditType", new { id = type.typeId })" class="btn btn-primary">Edit</a>
+                            <a href="@Url.Action("DeleteType", new { id = type.typeId })" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <!-- Pagination controls for types -->
+        <div class="text-center">
+            @if (Model.TypesPageNumber > 1)
+            {
+                <a href="@Url.Action("Index", new { authorPage = Model.AuthorsPageNumber, typePage = Model.TypesPageNumber - 1, borrowPage = Model.BorrowsPageNumber })">Previous</a>
+            }
+
+            @for (int i = 1; i <= Model.TotalTypesPages; i++)
+            {
+                <a href="@Url.Action("Index", new { authorPage = Model.AuthorsPageNumber, typePage = i, borrowPage = Model.BorrowsPageNumber })">@i</a>
+            }
+
+            @if (Model.TypesPageNumber < Model.TotalTypesPages)
+            {
+                <a href="@Url.Action("Index", new { authorPage = Model.AuthorsPageNumber, typePage = Model.TypesPageNumber + 1, borrowPage = Model.BorrowsPageNumber })">Next</a>
+            }
+        </div>
+    </div>
+</div>
+
+<h2>Borrows</h2>
+<a href="@Url.Action("CreateBorrow", "Maintain")" class="btn btn-primary">Create Borrow</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Student Name</th>
+            <th>Book Name</th>
+            <th>Date Taken</th>
+            <th>Date Brought back</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var borrow in Model.Borrows)
+        {
+            <tr>
+                <td>@(borrow.students != null ? borrow.students.name : "N/A")</td>
+                <td>@(borrow.books != null ? borrow.books.name : "N/A")</td>
+                <td>@borrow.takenDate</td>
+                <td>@borrow.broughtDate</td>
+                <td>
+                    <a href="@Url.Action("EditBorrow", new { id = borrow.borrowId })" class="btn btn-primary">Edit</a>
+                    <a href="@Url.Action("DeleteBorrow", new { id = borrow.borrowId })" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="text-center">
+    @if (Model.BorrowsPageNumber > 1)
+    {
+        <a href="@Url.Action("Index", new { authorPage = Model.AuthorsPageNumber, typePage = Model.TypesPageNumber, borrowPage = Model.BorrowsPageNumber - 1 })">Previous</a>
+    }
+
+    @for (int i = 1; i <= Model.TotalBorrowsPages; i++)
+    {
+        <a href="@Url.Action("Index", new { authorPage = Model.AuthorsPageNumber, typePage = Model.TypesPageNumber, borrowPage = i })">@i</a>
+    }
+
+    @if (Model.BorrowsPageNumber < Model.TotalBorrowsPages)
+    {
+        <a href="@Url.Action("Index", new { authorPage = Model.AuthorsPageNumber, typePage = Model.TypesPageNumber, borrowPage = Model.BorrowsPageNumber + 1 })">Next</a>
+    }
+</div>

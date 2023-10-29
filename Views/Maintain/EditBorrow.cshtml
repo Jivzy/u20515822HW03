@@ -1,0 +1,37 @@
+﻿@model u20515822_HW03.Models.StudentBookViewModel
+
+<h2>Edit Borrow</h2>
+
+@using (Html.BeginForm("EditAuthor", "Maintain", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(model => model.Borrow.borrowId)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Borrow.students.name, "Student Name")
+        @Html.DisplayFor(model => model.Borrow.students.name, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Borrow.books.name, "Book Name")
+        @Html.DisplayFor(model => model.Borrow.books.name, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Borrow.takenDate, "Borrow Date")
+        @Html.EditorFor(model => model.Borrow.takenDate, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Borrow.broughtDate, "Borrow Date")
+        @Html.EditorFor(model => model.Borrow.broughtDate, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+
+    <!-- Add other fields here if needed -->
+
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-primary" />
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
